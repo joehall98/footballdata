@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="chart.js/dist/Chart.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <title>Data Logging Tool - Joe Hall</title>
+  </head>
+  <body>
+
+    <div class="d-flex" id="wrapper">
+
+      <!-- Sidebar -->
+      <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><center><a href="index.html"><img src="pic/logo.png" height="150" width="150" alt="Logo"</a></center></div>
+        <div class="list-group list-group-flush">
+          <a href="index.html" class="list-group-item list-group-item-action bg-light">Data Logging Tool</a>
+          <a href="report.html" class="list-group-item list-group-item-action bg-light">Report</a>
+          <a href="profit.html" class="list-group-item list-group-item-action bg-light">Profit & Loss/ Wage Bills</a>
+          <a href="sketches.html" class="list-group-item list-group-item-action bg-light">Images & References</a>
+          <a href="https://www.google.com/search?q=premier+league+table+2019&rlz=1C5CHFA_enGB815GB815&oq=premier+&aqs=chrome.2.69i57j35i39l2j0l3.5085j1j7&sourceid=chrome&ie=UTF-8#sie=lg;/g/11fj6snmjm;2;/m/02_tc;st;fp;1;" class="list-group-item list-group-item-action bg-light">Premier League Table</a>
+          <a href="https://www.football-data.org/" class="list-group-item list-group-item-action bg-light">Football Data API</a>
+        </div>
+      </div>
+
+      <!-- /#sidebar-wrapper -->
+    <div class="container-fluid">
+    <br>
+    <h1><b><center>Data Logging Tool - Report</center></b></h1>
+    <br>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-6"><p><b>Ideas, Intentions and Aims</b></p>
+        <p>I knew I wanted to get data externally (via API) for this project so I decided to look on Any-API (Reference 1) where I came across the Football-Data API (Reference 2). It has a whole load of great data on their free package that includes 12 different competitions and includes stats such as fixtures results and league tables. From this information I knew I wanted to display the English leagues data as I have a passion for Football. I instantly began to think about how I could display the data from the API along with some financial data that I collected myself from Spotrac (Reference 3) and The Guardian (Reference 4). I decided to find all 20 Premier League teams wage bill and profit/loss accounts from the last financial year. I thought this would be great data to compare with how well each individual team is preforming in the league trying to answer the age-old question in football; does money equal success?</p>
+        <br>
+        <p>I wanted to make a 2 horizontally stacked bar chart (Image 1) one bar showing the teams points and the other showing how many games they had played. The idea was to have the points bar either green/ red depending on whether the team made a profit, or a loss and the team played bar to be greyscale depending on how much they spend on wages from black being the most to white being the least (Image 2). However, I ran out of time and was unable to complete the played bars to visualise this, however I added in a votes line on my chart so my users can log data from the webpage (Image 3). There is a dropdown menu above my chart that contains all 20 teams from the league, users can use this to select their favourite team then refresh the page and what their vote being added. I thought this was good as users now have more interactivity with my design and they are now another data source.</p>
+        <br>
+        <p><b>Data Sources</b></p>
+        <p>I had a variety of different data sources for my project. The first being the Football-Data API I used. I have included a link to the API on the sidebar of the site housing the data logging tool as it is a really great API with loads of great data, and I had fun using it. Secondly, I gathered Financial information for all 20 of the teams and created a database within my files and passed my information into it by running arrays of variables through for loops and storing them in my database as JavaScript objects. I gathered information from Spotrac, The Guardian and a site called Financial Football News (Reference 5). The vote is my last data source that comes from users. I think all 3 of these data sources are vastly different so gives my chart some uniqueness to it in my opinion as nobody else will have all this data in one place.</p>
+      </div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4"><br>
+        <center><img src="pic/graph1.png" class="img-fluid" alt="Graph 1"</a></center>
+        <p>Image 1</p>
+        <br>
+        <center><img src="pic/graph2.png" class="img-fluid" alt="Graph 2"</a></center>
+        <p>Image 2</p>
+        <br>
+        <center><img src="pic/graph3.png" class="img-fluid" alt="Graph 3"</a></center>
+        <p>Image 3</p>
+        <br>
+    </div>
+  </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+    </script>
+  </body>
+</html>

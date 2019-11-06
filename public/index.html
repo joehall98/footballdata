@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="chart.js/dist/Chart.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <title>Data Logging Tool - Joe Hall</title>
+  </head>
+  <body>
+
+  <div class="d-flex" id="wrapper">
+
+      <!-- Sidebar -->
+      <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><center><a href="index.html"><img src="pic/logo.png" height="150" width="150" alt="Logo"</a></center></div>
+        <div class="list-group list-group-flush">
+          <a href="index.html" class="list-group-item list-group-item-action bg-light">Data Logging Tool</a>
+          <a href="profit.html" class="list-group-item list-group-item-action bg-light">Profit & Loss/ Wage Bills</a>
+          <a href="report.html" class="list-group-item list-group-item-action bg-light">Report</a>
+          <a href="sketches.html" class="list-group-item list-group-item-action bg-light">Images & References</a>
+          <a href="https://www.google.com/search?q=premier+league+table+2019&rlz=1C5CHFA_enGB815GB815&oq=premier+&aqs=chrome.2.69i57j35i39l2j0l3.5085j1j7&sourceid=chrome&ie=UTF-8#sie=lg;/g/11fj6snmjm;2;/m/02_tc;st;fp;1;" class="list-group-item list-group-item-action bg-light">Premier League Table</a>
+          <a href="https://www.football-data.org/" class="list-group-item list-group-item-action bg-light">Football Data API</a>
+        </div>
+      </div>
+
+      <!-- /#sidebar-wrapper -->
+      <div class="container-fluid">
+        <br>
+        <h1><b><center>Premier League 2019-2020 Data Logging Tool</center></b></h1>
+        <b><center>Choose your favourite team from the dropdown below, submit then refresh the page to see your vote being added!</center></b>
+        <br>
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-8">
+              <select align="right" id = "vote">
+                <option value="1044">AFC Bournemouth</option>
+                <option value="57">Arsenal FC</option>
+                <option value="58">Aston Villa FC</option>
+                <option value="397">Brighton & Hove Albion FC</option>
+                <option value="328">Burnley FC</option>
+                <option value="61">Chelsea FC</option>
+                <option value="354">Crystal Palace FC</option>
+                <option value="62">Everton FC</option>
+                <option value="338">Leicester City FC</option>
+                <option value="64">Liverpool FC</option>
+                <option value="65">Manchester City FC</option>
+                <option value="66">Manchester United FC</option>
+                <option value="67">Newcastle United FC</option>
+                <option value="68">Norwich City FC</option>
+                <option value="356">Sheffield United FC</option>
+                <option value="340">Southampton FC</option>
+                <option value="73">Tottenham Hotspur FC</option>
+                <option value="346">Watford FC</option>
+                <option value="563">West Ham FC</option>
+                <option value="76">Wolverhampton Wanderers FC</option>
+              </select>
+            <button id="submit">Submit</button>
+            <button onclick="location.reload();">Refresh Page</button>
+          </div>
+          <div class="col-2">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-5"></div>
+          <div class="col-2"><img src="pic/pandl.png" class="img-fluid" alt="Key"></div>
+          <div class="col-5"></div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-8"><canvas id="myChart" width="400" height="400"></canvas></div> <!-- Displays chart in webpage -->
+          <div class="col-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var myChart; // declaring myChart in global scope
+      var color = []; // declaring color array in global scope
+      var ctx = document.getElementById('myChart').getContext('2d'); // using ctx as a variable to generate 2d chart
+
+      const button = document.getElementById('submit').addEventListener('click', async event => { // running vote filter button
+          const data1 = await getData();
+          var datas; // declaring datas
+          var vote; // declaring vote
+          var dbid = parseInt(document.getElementById('vote').value); // declaring bdid as the value which u get from selecting certain team from dropdown
+            for (var i = 0; i < data1.comeback.length; i++) {
+              if (data1.comeback[i].dbid == dbid) { // if the dbid number inside my db is the same as bdid number you get from the value of the vote
+                vote = data1.comeback[i].vote + 1; // then add 1 onto the vote found within the database
+                break; // once added stop the for loop
+              }
+            }
+            const data = await {dbid, vote}; // what data we are looking for or updating
+            const options = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            };
+            const response = await fetch('/api', options); // inserting the vote data into the database
+            const json = await response.json();
+        });
+
+        football(); // run football function
+        async function football(){
+          options = {
+            headers: { 'X-Auth-Token': '6dccb94799214869bc88f00fa9d259f3' }, // set up how the API told me to do it using my API key
+            dataType: 'json', // declare datatype of this data in this case json
+          }
+          const respons = await fetch('http://api.football-data.org/v2/competitions/PL/standings',options); // fetch the information from api so I can view it
+          datas = await respons.json(); // setting datas
+          getData(datas); // running the getData function while passing datas variables through it so it can see and work with this variable
+          chartIt(datas); // running the ChartIt function while passing datas variables through it so it can see and work with this variable
+        }
+
+        async function getData(){
+          let databaseData = await fetch('/api');  // reading database
+          const comeback = await databaseData.json();
+          var profit = []; // declaring profit array within this function
+          var vote = []; // declaring vote array within this function
+          if(datas !== 'undefined'){
+            for (var i = 0; i < 20; i++) {
+            for (var j = 0; j < 20; j++) {
+            if (datas.standings[0].table[i].team.name == comeback[j].team) { // if the team name from the API is the same as the team name in my database then read that teams profit and vote data
+                profit[i] = comeback[j].profit;
+                vote[i] = comeback[j].vote;
+                break;
+              }
+            }
+            }
+            color = [];
+              for (var i = 0; i < 20; i++) { // this will attach color of points bar to each team
+                if (profit[i] >=0) { // if clubs profit is equal to or greater than 0
+                  color[i] = '#00ff80'; // then color will be green
+                } else { // if not
+                  color[i] = '#ff0000'; // then color will be red
+                }
+              }
+            }
+            return {comeback, color, vote}; // what data we should be getting from this function
+          }
+
+          async function chartIt(){
+            let season = datas.standings[0].table; // telling API where to look for the data I need
+            let chartData = await getData();
+            let teamName = []; // declaring teamName as array
+            let teamPoints = []; // declaring teamPoints as an array
+            let teamPlayed = []; // declaring teamPlayed as an array
+
+            for (let i = 0; i < season.length; i++) { // getting information from database into variables so I can display in the graph
+              teamName[i]= season[i].team.name;
+              teamPoints[i] = season[i].points;
+              teamPlayed[i] = season[i].playedGames;
+            }
+
+            const data1 = await getData();
+            myChart = new Chart(ctx, { // chart.js setting up chart appearence
+            type: 'bar', // using bar chart
+              data: {
+                  labels: teamName, // lables of y axis
+                  datasets: [{
+                      label: 'Votes', // label of line
+                      data: chartData.vote, // getting data from async event function, finding vote in databse and displaying it
+                      type: 'line', // declaring its a line
+                      fill: false, // dont fill
+                      backgroundColor: 'black', // black line
+                      borderColor: 'black', // black border
+                    },
+                    {
+                      label: 'Points', // label of left bar
+                      data: teamPoints, // inputting teamPoints from API
+                      stack: '0', // first bar in stack
+                      backgroundColor: chartData.color, // getting background colour data from const data
+                      borderColor: [
+                        '#000000', // setting all to black
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                      ],
+                      borderWidth: 1
+                  },
+                  {
+                      label: 'Played', // label  of second bar
+                      data: teamPlayed, // inputting teamPlayed from API
+                      stack: '1', // second bar in stack
+                      backgroundColor: [
+                        '#0080ff', // setting all to blue
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                        '#0080ff',
+                      ],
+                      borderColor: [
+                        '#000000', //setting all to black
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                        '#000000',
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          }
+                      }]
+                  }
+              }
+          });
+      }
+    </script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+    </script>
+  </body>
+</html>

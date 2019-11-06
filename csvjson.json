@@ -1,0 +1,163 @@
+[
+  {
+    "Team": "AFC Bournemouth",
+    "Profit": -11,
+    "s1": 15,
+    "Wage": 36.7,
+    "s2": 15,
+    "dbid": 1044
+    "votes": 32786
+  },
+  {
+    "Team": "Arsenal FC",
+    "Profit": 70,
+    "s1": 3,
+    "Wage": 99.4,
+    "s2": 5,
+    "dbid": 57
+  },
+  {
+    "Team": "Aston Villa FC",
+    "Profit": -35,
+    "s1": 18,
+    "Wage": 25.9,
+    "s2": 18,
+    "dbid": 58
+  },
+  {
+    "Team": "Brighton & Hove Albion FC",
+    "Profit": 12,
+    "s1": 11,
+    "Wage": 31.8,
+    "s2": 16,
+    "dbid": 397
+  },
+  {
+    "Team": "Burnley FC",
+    "Profit": 45,
+    "s1": 4,
+    "Wage": 41.7,
+    "s2": 13,
+    "dbid": 328
+  },
+  {
+    "Team": "Chelsea FC",
+    "Profit": 30,
+    "s1": 6,
+    "Wage": 104.1,
+    "s2": 4,
+    "dbid": 61
+  },
+  {
+    "Team": "Crystal Palace FC",
+    "Profit": -36,
+    "s1": 19,
+    "Wage": 71.9,
+    "s2": 8,
+    "dbid": 354
+  },
+  {
+    "Team": "Everton FC",
+    "Profit": -13,
+    "s1": 16,
+    "Wage": 81.4,
+    "s2": 7,
+    "dbid": 62
+  },
+  {
+    "Team": "Leicester City FC",
+    "Profit": 2,
+    "s1": 13,
+    "Wage": 69.5,
+    "s2": 9,
+    "dbid": 338
+  },
+  {
+    "Team": "Liverpool FC",
+    "Profit": 125,
+    "s1": 2,
+    "Wage": 113.2,
+    "s2": 3,
+    "dbid": 64
+  },
+  {
+    "Team": "Manchester City FC",
+    "Profit": 10,
+    "s1": 12,
+    "Wage": 145.7,
+    "s2": 1,
+    "dbid": 65
+  },
+  {
+    "Team": "Manchester United FC",
+    "Profit": 26,
+    "s1": 7,
+    "Wage": 141.4,
+    "s2": 2,
+    "dbid": 66
+  },
+  {
+    "Team": "Newcastle United FC",
+    "Profit": 23,
+    "s1": 8,
+    "Wage": 37.9,
+    "s2": 14,
+    "dbid": 67
+  },
+  {
+    "Team": "Norwich City FC",
+    "Profit": 19,
+    "s1": 9,
+    "Wage": 13.6,
+    "s2": 19,
+    "dbid": 68
+  },
+  {
+    "Team": "Sheffield United FC",
+    "Profit": -2,
+    "s1": 14,
+    "Wage": 13.5,
+    "s2": 20,
+    "dbid": 356
+  },
+  {
+    "Team": "Southampton FC",
+    "Profit": 35,
+    "s1": 5,
+    "Wage": 50,
+    "s2": 11,
+    "dbid": 340
+  },
+  {
+    "Team": "Tottenham Hotspur FC",
+    "Profit": 139,
+    "s1": 1,
+    "Wage": 93.4,
+    "s2": 6,
+    "dbid": 73
+  },
+  {
+    "Team": "Watford FC",
+    "Profit": -32,
+    "s1": 17,
+    "Wage": 44,
+    "s2": 12,
+    "dbid": 346
+  },
+  {
+    "Team": "West Ham FC",
+    "Profit": 18,
+    "s1": 10,
+    "Wage": 57.4,
+    "s2": 10,
+    "dbid": 563
+  },
+  {
+    "Team": "Wolverhampton Wanderers FC",
+    "Profit": -57,
+    "s1": 20,
+    "Wage": 30.7,
+    "s2": 17,
+    "dbid": 76
+  }
+]
